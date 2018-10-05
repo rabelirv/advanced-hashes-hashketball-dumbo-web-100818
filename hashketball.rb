@@ -41,10 +41,8 @@ game = {:home => {
 end
 
 def num_points_scored(name)
-game_hash.each do
-  |location, team_data|
-  team_data[:players].each do
-    |player,stats|
+game_hash.each do|location, team_data|
+  team_data[:players].each do|player,stats|
 if player == name 
          return stats[:points]
     end
@@ -54,10 +52,8 @@ end
 
 
 def shoe_size(name)
-game_hash.each do
-  |location, team_data|
-  team_data[:players].each do
-    |player,stats|
+game_hash.each do  |location, team_data|
+  team_data[:players].each do|player,stats|
   if player == name
         return stats[:shoe]
       end
@@ -69,8 +65,7 @@ game_hash.each do
 
 
 def team_colors(team)
-  game_hash.each do
-  |location, team_data|
+  game_hash.each do |location, team_data|
   if team_data[:team_name] == team  
     return team_data[:colors]
   end
@@ -78,66 +73,53 @@ end
 end
 
 def team_names
- # game_hash.each do
- # |location,team_data|
-# team_data.map do
-  # |attribute,data|
-  # attribute[:team_name]
-# end
- #end
  teams.map do |t|
    t.fetch(:team_name)
-  # binding.pry
  end
  end
  
  def teams
    game_hash.values
-  # binding.pry
  end
  
  def player_numbers(team)
-  game_hash.each do
-    |location,team_data|
-    if team_data[:team_name]== team
-      team_data[:players].map do
-        |name,stats|
-        stats[:jersey]
-      end
+  new_array =[]
+   game_hash.each do |location,team_data|
+    if team_data[:team_name] == team
+      new_array<< jerseys(team_data)
     end
   end
+  new_array.flatten
 end
+
+def jerseys(team_data)
+array= []
+      team_data[:players].each do|player,stats|
+       array<< stats[:number]
+    end
+    return array
+  end
 
 def player_stats(name)
-  game_hash.each do
-  |location, team_data|
-  team_data.each do
-    |attribute,data|
-    data.each do
-      |player,stats|
-      return stats
+  game_hash.each do|location, team_data|
+    team_data[:players].each do|player,stats|
+      if player == name
+        return stats
+      end
     end
   end
 end
-end
 
-  def big_shoe_rebounds
-game_hash.each do
-  |location, team_data|
+def big_shoe_rebounds
+  game_hash.each do |location, team_data|
+   team_data[:players].each do |player,stats|
+      if  player == "Mason Plumlee"
+      return stats[:rebounds]
       end
-
-  rebounds
+    end
+  end
 end
   
-  
-  
-  
-
-
-
-
-
-
 
 
 
