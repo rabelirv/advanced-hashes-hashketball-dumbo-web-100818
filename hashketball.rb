@@ -40,6 +40,14 @@ game = {:home => {
 
 end
 
+def hornet_player(player_name)
+variable = game_hash[:away][:players].find do |name,stats|
+  name== player_name
+end
+ binding.pry 
+end
+hornet_player("Ben Gordon")
+
 def num_points_scored(name)
 game_hash.each do|location, team_data|
   team_data[:players].each do|player,stats|
